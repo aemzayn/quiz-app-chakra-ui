@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
 import Head from "next/head";
-import { Button, Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
+import { GetServerSidePropsContext } from "next";
 import { Quiz } from "../../interfaces";
 import AnswerButton from "../components/answer-button";
 import fetchQuiz from "../libs/fetchQuiz";
-import { useRouter } from "next/router";
+import { Button, Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 
 type Props = {
   questions: Quiz[];
@@ -15,14 +15,11 @@ const Game: React.FC<Props> = ({ questions }) => {
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
-  const [canAnswer, setCanAnswer] = useState(true);
   const [canGoToNextRound, setCanGoToNextRound] = useState(false);
   const [choosenAnswer, setChoosenAnswer] = useState("");
-  const [startGame, setStartGame] = useState(false);
   const router = useRouter();
 
   const submitAnswer = () => {
-    setCanAnswer(true);
     setCanGoToNextRound(false);
 
     if (questions[current].correct_answer === choosenAnswer) {
@@ -54,7 +51,11 @@ const Game: React.FC<Props> = ({ questions }) => {
         <meta name="description" content="Game room" />
       </Head>
       <Heading textAlign="center">
-        {questions.length > 0 ? `${current + 1}/${questions?.length}` : "Quiz"}
+        {questions.length > 0
+          ? `${current + 1}/${questions?.length}`
+          : gameOver
+          ? "Game over"
+          : "Quiz"}
       </Heading>
 
       {questions.length > 0 && !gameOver && (
@@ -101,7 +102,7 @@ export default Game;
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   const { query } = ctx;
-  let { amount, category, difficulty, type } = query;
+  const { amount, category, difficulty, type } = query;
 
   const questions = await fetchQuiz(
     amount,

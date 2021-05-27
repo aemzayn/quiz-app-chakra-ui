@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { AppProps } from "next/app";
 import { ChakraProvider, Container } from "@chakra-ui/react";
 import theme from "../theme";

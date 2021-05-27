@@ -1,7 +1,4 @@
-import { Quiz } from "../../interfaces";
-
 /*
-
   no of questions
   - min 1
   - max 50
@@ -50,12 +47,12 @@ import { Quiz } from "../../interfaces";
 */
 
 const fetchQuiz = async (
-  no: string = "10",
-  category: string,
-  difficulty: string,
-  type: string
+  amount: string | string[] = "10",
+  category: string | string[],
+  difficulty: string | string[],
+  type: string | string[]
 ) => {
-  let url = `https://opentdb.com/api.php?amount=${no}${
+  let url = `https://opentdb.com/api.php?amount=${amount}${
     category && "&category=" + category
   }${difficulty && "&difficulty=" + difficulty}${type && "&type=" + type}`;
   const res = await fetch(url);

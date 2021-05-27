@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import {
   Heading,
@@ -10,8 +11,11 @@ import {
   Button,
   Center,
   Link,
+  Icon,
+  Box,
+  Text,
 } from "@chakra-ui/react";
-import Head from "next/head";
+import { GoLogoGithub } from "react-icons/go";
 
 const CATEGORY = [
   { label: "Any", value: "" },
@@ -55,8 +59,9 @@ const TYPE = [
 ];
 
 const Index = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [questionsType, setQuestionsType] = useState({
-    no: 10,
+    amount: 10,
     category: "",
     difficulty: "",
     type: "",
@@ -73,9 +78,10 @@ const Index = () => {
 
   const handleSubmit = (e: React.FormEvent<EventTarget>) => {
     e.preventDefault();
-    if (questionsType.no < 1 && questionsType.no > 50) return;
+    if (questionsType.amount < 1 && questionsType.amount > 50) return;
+    setIsLoading(true);
     router.push(
-      `/g?amount=${questionsType.no}${
+      `/g?amount=${questionsType.amount}${
         questionsType.category && "&category=" + questionsType.category
       }${
         questionsType.difficulty && "&difficulty=" + questionsType.difficulty
@@ -94,9 +100,9 @@ const Index = () => {
           <FormControl>
             <FormLabel>Question amount</FormLabel>
             <Input
-              value={questionsType.no}
+              value={questionsType.amount}
               onChange={handleChange}
-              name="no"
+              name="amount"
               type="number"
               min="1"
               max="50"
@@ -144,16 +150,25 @@ const Index = () => {
               ))}
             </Select>
           </FormControl>
-          <Button size="lg" type="submit">
+          <Button size="lg" type="submit" isLoading={isLoading}>
             Start game
           </Button>
         </VStack>
-        <Center opacity="0.6" mt={20}>
-          API from{" "}
-          <Link ml={1} href="https://opentdb.com/" isExternal rel="nofollow">
-            opentdb.com
+        <VStack color="gray.500" mt={20}>
+          <Text>
+            API from{" "}
+            <Link href="https://opentdb.com/" isExternal rel="nofollow">
+              opentdb.com
+            </Link>
+          </Text>
+          <Link
+            _hover={{ color: "white" }}
+            isExternal
+            href="https://github.com/aemzayn/quiz-app-chakra-ui"
+          >
+            <Icon w={10} as={GoLogoGithub} />
           </Link>
-        </Center>
+        </VStack>
       </main>
     </>
   );
