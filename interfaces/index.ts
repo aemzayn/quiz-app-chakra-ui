@@ -5,6 +5,20 @@
 // import { User } from 'path/to/interfaces';
 
 export type User = {
-  id: number
-  name: string
-}
+  id: number;
+  name: string;
+};
+
+export type Quiz = {
+  category: string;
+  correct_answer: string;
+  difficulty: string;
+  incorrect_answers: string[];
+  question: string;
+  type: string;
+};
+
+export type ICurrent = {
+  current?: number;
+  setCurrent: (prevState: number | null) => number;
+};
