@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import Link from "next/link";
 import { ColorSchemeContext } from "../context/ColorScheme";
 import {
   Flex,
@@ -8,7 +9,7 @@ import {
   Icon,
   useColorMode,
 } from "@chakra-ui/react";
-import { HiMoon, HiSun } from "react-icons/hi";
+import { HiMoon, HiSun, HiHome } from "react-icons/hi";
 import { ColorSchemeType } from "../interfaces";
 
 type Props = {
@@ -35,13 +36,20 @@ const Header: React.FC<Props> = ({ title = "Create a new game" }) => {
           size="sm"
           ml={2}
           colorScheme={colorScheme}
-          icon={
-            <Icon
-              onClick={toggleColorMode}
-              as={colorMode === "dark" ? HiSun : HiMoon}
-            />
-          }
+          onClick={toggleColorMode}
+          icon={<Icon as={colorMode === "dark" ? HiSun : HiMoon} />}
         />
+        <Link href="/">
+          <IconButton
+            as="a"
+            aria-label="Home button"
+            size="sm"
+            cursor="pointer"
+            ml={2}
+            colorScheme={colorScheme}
+            icon={<Icon as={HiHome} />}
+          />
+        </Link>
       </Flex>
     </Flex>
   );

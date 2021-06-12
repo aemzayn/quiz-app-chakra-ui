@@ -84,6 +84,7 @@ const Game: React.FC<Props> = ({ questions }) => {
                 answer={answer}
                 colorScheme={colorScheme}
                 submit={chooseAnswer}
+                isSelected={choosenAnswer === answer}
               />
             ))}
           </SimpleGrid>

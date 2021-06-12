@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {
-  Heading,
   VStack,
   FormControl,
   FormLabel,
@@ -10,7 +9,6 @@ import {
   Select,
   Button,
   Link,
-  Flex,
   Icon,
   Text,
   useColorMode,
@@ -18,6 +16,8 @@ import {
 import { GoLogoGithub } from "react-icons/go";
 import { CATEGORY, DIFFICULTY, TYPE } from "../libs/constants";
 import Header from "../components/header";
+import { ColorSchemeContext } from "../context/ColorScheme";
+import { ColorSchemeType } from "../interfaces";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,8 @@ const Index = () => {
     type: "",
   });
   const router = useRouter();
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
+  const { colorScheme } = useContext(ColorSchemeContext) as ColorSchemeType;
 
   const handleChange = (e: React.FormEvent<EventTarget>) => {
     let target = e.target as HTMLInputElement;
@@ -112,7 +113,12 @@ const Index = () => {
               ))}
             </Select>
           </FormControl>
-          <Button size="lg" type="submit" isLoading={isLoading}>
+          <Button
+            colorScheme={colorScheme}
+            size="lg"
+            type="submit"
+            isLoading={isLoading}
+          >
             Start game
           </Button>
         </VStack>
