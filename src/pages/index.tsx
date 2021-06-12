@@ -9,11 +9,10 @@ import {
   Input,
   Select,
   Button,
-  Center,
   Link,
   Icon,
-  Box,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import { GoLogoGithub } from "react-icons/go";
 
@@ -67,6 +66,7 @@ const Index = () => {
     type: "",
   });
   const router = useRouter();
+  const { colorMode } = useColorMode();
 
   const handleChange = (e: React.FormEvent<EventTarget>) => {
     let target = e.target as HTMLInputElement;
@@ -157,16 +157,21 @@ const Index = () => {
         <VStack color="gray.500" mt={20}>
           <Text>
             API from{" "}
-            <Link href="https://opentdb.com/" isExternal rel="nofollow">
+            <Link
+              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              href="https://opentdb.com/"
+              isExternal
+              rel="nofollow"
+            >
               opentdb.com
             </Link>
           </Text>
           <Link
-            _hover={{ color: "white" }}
+            _hover={{ color: colorMode === "light" ? "black" : "white" }}
             isExternal
             href="https://github.com/aemzayn/quiz-app-chakra-ui"
           >
-            <Icon w={10} as={GoLogoGithub} />
+            <Icon aria-label="Github repo icon" w={10} as={GoLogoGithub} />
           </Link>
         </VStack>
       </main>

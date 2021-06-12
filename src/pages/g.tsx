@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
-import { Quiz } from "../../interfaces";
+import { Quiz } from "../interfaces";
 import AnswerButton from "../components/answer-button";
 import fetchQuiz from "../libs/fetchQuiz";
+import { shuffle } from "../libs/shuffle";
 import { Button, Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 
 type Props = {
@@ -18,6 +19,15 @@ const Game: React.FC<Props> = ({ questions }) => {
   const [canGoToNextRound, setCanGoToNextRound] = useState(false);
   const [choosenAnswer, setChoosenAnswer] = useState("");
   const router = useRouter();
+  const [answers, setAnswers] = useState<string[]>([]);
+
+  useEffect(() => {
+    let currentAnswers = shuffle([
+      ...questions[current].incorrect_answers,
+      questions[current].correct_answer,
+    ]);
+    setAnswers(currentAnswers);
+  }, [current]);
 
   const submitAnswer = () => {
     setCanGoToNextRound(false);
@@ -44,6 +54,7 @@ const Game: React.FC<Props> = ({ questions }) => {
     setCanGoToNextRound(true);
     setChoosenAnswer(answer);
   };
+
   return (
     <>
       <Head>
@@ -67,15 +78,9 @@ const Game: React.FC<Props> = ({ questions }) => {
             <span></span>
           </Heading>
           <SimpleGrid columns={2} row={2} gap={4}>
-            {questions[current]?.incorrect_answers.map((inc_ans, key) => (
-              <AnswerButton key={key} answer={inc_ans} submit={chooseAnswer} />
+            {answers.map((answer, idx) => (
+              <AnswerButton key={idx} answer={answer} submit={chooseAnswer} />
             ))}
-            {questions[current]?.correct_answer && (
-              <AnswerButton
-                answer={questions[current]?.correct_answer}
-                submit={chooseAnswer}
-              />
-            )}
           </SimpleGrid>
           <Flex w="full" justifyContent="flex-end">
             {canGoToNextRound && (

@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/button";
+import { Button, Text } from "@chakra-ui/react";
 
 type Props = {
   answer: string;
@@ -8,8 +8,8 @@ type Props = {
 
 const AnswerButton: React.FC<Props> = ({ answer, submit }) => {
   return (
-    <Button size="lg" onClick={() => submit(answer)}>
-      <span dangerouslySetInnerHTML={{ __html: answer }} />
+    <Button wordBreak="break-all" size="lg" onClick={() => submit(answer)}>
+      <Text w="full" as="span" dangerouslySetInnerHTML={{ __html: answer }} />
     </Button>
   );
 };
