@@ -22,3 +22,8 @@ export type ICurrent = {
   current?: number;
   setCurrent: (prevState: number | null) => number;
 };
+
+export type ColorSchemeType = {
+  colorScheme: string;
+  changeColorTheme: () => void;
+};

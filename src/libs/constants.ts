@@ -38,3 +38,21 @@ export const TYPE = [
   { label: "True or false", value: "boolean" },
   { label: "Multiple choice", value: "multiple" },
 ];
+
+export const COLORS = [
+  "gray",
+  "red",
+  "orange",
+  "yellow",
+  "facebook",
+  "green",
+  "teal",
+  "blue",
+  "cyan",
+  "telegram",
+  "purple",
+  "pink",
+  "twitter",
+  "whatsapp",
+  "linkedin",
+];

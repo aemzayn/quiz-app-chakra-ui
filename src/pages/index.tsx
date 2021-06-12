@@ -10,12 +10,14 @@ import {
   Select,
   Button,
   Link,
+  Flex,
   Icon,
   Text,
   useColorMode,
 } from "@chakra-ui/react";
 import { GoLogoGithub } from "react-icons/go";
 import { CATEGORY, DIFFICULTY, TYPE } from "../libs/constants";
+import Header from "../components/header";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +28,7 @@ const Index = () => {
     type: "",
   });
   const router = useRouter();
-  const { colorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const handleChange = (e: React.FormEvent<EventTarget>) => {
     let target = e.target as HTMLInputElement;
@@ -55,7 +57,7 @@ const Index = () => {
         <title>Quiz</title>
       </Head>
       <main>
-        <Heading size="md">Create a new game</Heading>
+        <Header />
         <VStack as="form" onSubmit={handleSubmit} mt={4} spacing={4}>
           <FormControl>
             <FormLabel>Question amount</FormLabel>
