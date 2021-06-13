@@ -25,10 +25,11 @@ const Header: React.FC<Props> = ({ title = "Create a new game" }) => {
   ) as IColorSchemeType;
 
   let colorName = colorScheme?.charAt(0).toUpperCase() + colorScheme?.substr(1);
+  let colors: any = Object.entries(theme.colors);
+
   const themeColor =
-    (Object as ObjectConstructor)
-      ?.entries(theme.colors)
-      ?.find((color) => color[0] === colorScheme)?.[1]?.[500] || "#1a202c";
+    colors.find((color: string) => color[0] === colorScheme)?.[1]?.[500] ||
+    "#1a202c";
 
   return (
     <>
