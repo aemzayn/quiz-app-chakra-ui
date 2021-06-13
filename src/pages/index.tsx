@@ -11,13 +11,13 @@ import {
   Link,
   Icon,
   Text,
-  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { GoLogoGithub } from "react-icons/go";
 import { CATEGORY, DIFFICULTY, TYPE } from "../libs/constants";
 import Header from "../components/header";
 import { ColorSchemeContext } from "../context/ColorScheme";
-import { ColorSchemeType } from "../interfaces";
+import { IColorSchemeType } from "../interfaces/IColorScheme";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,8 +28,8 @@ const Index = () => {
     type: "",
   });
   const router = useRouter();
-  const { colorMode } = useColorMode();
-  const { colorScheme } = useContext(ColorSchemeContext) as ColorSchemeType;
+  const { colorScheme } = useContext(ColorSchemeContext) as IColorSchemeType;
+  const footerColor = useColorModeValue("gray.700", "gray.300");
 
   const handleChange = (e: React.FormEvent<EventTarget>) => {
     let target = e.target as HTMLInputElement;
@@ -56,6 +56,8 @@ const Index = () => {
     <>
       <Head>
         <title>Quiz</title>
+        <meta name="description" content="Challenge your self with quiz." />
+        <meta name="keywords" content="Quiz, General Knowledge, Game" />
       </Head>
       <main>
         <Header />
@@ -122,11 +124,11 @@ const Index = () => {
             Start game
           </Button>
         </VStack>
-        <VStack color="gray.500" mt={20}>
+        <VStack color={footerColor} mt={20}>
           <Text>
             API from{" "}
             <Link
-              _hover={{ color: colorMode === "light" ? "black" : "white" }}
+              _hover={{ color: colorScheme, textDecor: "underline" }}
               href="https://opentdb.com/"
               isExternal
               rel="nofollow"
@@ -135,9 +137,10 @@ const Index = () => {
             </Link>
           </Text>
           <Link
-            _hover={{ color: colorMode === "light" ? "black" : "white" }}
+            _hover={{ color: colorScheme }}
             isExternal
             href="https://github.com/aemzayn/quiz-app-chakra-ui"
+            rel="noreferrer"
           >
             <Icon aria-label="Github repo icon" w={10} as={GoLogoGithub} />
           </Link>

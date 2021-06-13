@@ -10,7 +10,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { HiMoon, HiSun, HiHome } from "react-icons/hi";
-import { ColorSchemeType } from "../interfaces";
+import { IColorSchemeType } from "../interfaces/IColorScheme";
 
 type Props = {
   title?: string;
@@ -20,7 +20,7 @@ const Header: React.FC<Props> = ({ title = "Create a new game" }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { colorScheme, changeColorTheme } = useContext(
     ColorSchemeContext
-  ) as ColorSchemeType;
+  ) as IColorSchemeType;
 
   let colorName = colorScheme?.charAt(0).toUpperCase() + colorScheme?.substr(1);
 

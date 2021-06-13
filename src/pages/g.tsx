@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { GetServerSidePropsContext } from "next";
 import { ColorSchemeContext } from "../context/ColorScheme";
-import { Quiz, ColorSchemeType } from "../interfaces";
+import { IColorSchemeType } from "../interfaces/IColorScheme";
+import { IQuiz } from "../interfaces/IQuiz";
 import AnswerButton from "../components/answer-button";
 import fetchQuiz from "../libs/fetchQuiz";
 import { shuffle } from "../libs/shuffle";
@@ -11,10 +12,10 @@ import { Button, Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import Header from "../components/header";
 
 type Props = {
-  questions: Quiz[];
+  questions: IQuiz[];
 };
 
-const Game: React.FC<Props> = ({ questions }) => {
+const Game = ({ questions }: Props) => {
   const [current, setCurrent] = useState(0);
   const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
@@ -22,7 +23,7 @@ const Game: React.FC<Props> = ({ questions }) => {
   const [choosenAnswer, setChoosenAnswer] = useState("");
   const router = useRouter();
   const [answers, setAnswers] = useState<string[]>([]);
-  const { colorScheme } = useContext(ColorSchemeContext) as ColorSchemeType;
+  const { colorScheme } = useContext(ColorSchemeContext) as IColorSchemeType;
 
   useEffect(() => {
     let currentAnswers = shuffle([
@@ -63,6 +64,7 @@ const Game: React.FC<Props> = ({ questions }) => {
       <Head>
         <title>Game</title>
         <meta name="description" content="Game room" />
+        <meta name="keywords" content="Quiz, General Knowledge, Game" />
       </Head>
       <Header title={questions[current].category} />
       <Heading textAlign="center" mt={8}>

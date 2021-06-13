@@ -40,13 +40,12 @@ export const TYPE = [
 ];
 
 export const COLORS = [
-  "gray",
+  "teal",
   "red",
   "orange",
   "yellow",
   "facebook",
   "green",
-  "teal",
   "blue",
   "cyan",
   "telegram",
@@ -55,4 +54,5 @@ export const COLORS = [
   "twitter",
   "whatsapp",
   "linkedin",
+  "gray",
 ];

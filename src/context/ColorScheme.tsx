@@ -1,8 +1,8 @@
 import React, { createContext, useState } from "react";
-import { ColorSchemeType } from "../interfaces/index";
+import { IColorSchemeType } from "../interfaces/IColorScheme";
 import { COLORS } from "../libs/constants";
 
-export const ColorSchemeContext = createContext<ColorSchemeType | null>(null);
+export const ColorSchemeContext = createContext<IColorSchemeType | null>(null);
 
 const ColorProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [colorScheme, setColorScheme] = useState({
